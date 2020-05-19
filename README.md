@@ -1,0 +1,3 @@
+# A Workflow for Data Scientists to bring Jupyter Notebook Visualizations to Kibana Dashboards
+
+Here be dragons ...
