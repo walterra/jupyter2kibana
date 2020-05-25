@@ -32,9 +32,25 @@ The final chart for this second dashboard is a violin chart to show the distribu
 
 ![Kibana Dashboard VEGA Cars](assets/kibana-dashboard-vega-cars.jpg)
 
-----
+### [3a-iris-classification](viz-3a-iris-classification.ipynb)
 
-... to be continued
+This notebook demonstrates how small multiples of stacked bar chart histograms can be used to evaluate machine learning results, in this case comparing original values to predicted categorizations.
+
+![Kibana Dashboard VEGA Iris](assets/kibana-dashboard-vega-iris.jpg)
+
+### [4a-anomaly-detection.ipynb](4a-anomaly-detection.ipynb)
+
+This notebook demonstrates how to replicate one of the custom charts of Kibana's Machine Learning plugin as an embeddable chart for dashboards.
+
+### [4b-anomaly-detection-annotation.ipynb](4b-anomaly-detection-annotation.ipynb)
+
+On top of the previous example this adds user created annotations as an additional layer to the visualization. It's a great example of how *VEGA* is able to fetch data from different sources/indices, something not easily doable with Kibana's own visualizations.
+
+### [4c-anomaly-detection-split.ipynb](4c-anomaly-detection-split.ipynb)
+
+In this example we're back at using small multiples to visualize data about distinct entities with highlighted anomalies.
+
+![Kibana Dashboard VEGA Anomaly Detection](assets/kibana-dashboard-vega-anomaly-detection.jpg)
 
 
 
