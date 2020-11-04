@@ -1,6 +1,6 @@
 # A Workflow for Data Scientists to bring Jupyter Notebook Visualizations to Kibana Dashboards
 
-![Jupyter Kibana Workflow](assets/jupyter-kibana-workflow.jpg)
+![Jupyter Kibana Workflow](docs/assets/jupyter-kibana-workflow.jpg)
 
 This repository consists of several Jupyter Notebooks to demonstrate a workflow mainly using Altair to develop visualizations which can be published to Kibana Dashboards. One of the main benefits of this approach is that a data scientist can continue to work with the environment they are most familiar with, without touching raw VEGA JSON specifications or coding custom JavaScript visualizations.
 
@@ -16,7 +16,7 @@ This notebooks builds on the learning from the first one and uses the same data 
 
 The two visualizations can be combined in a single dashboard and will consider filters added via the KQL query bar:
 
-![Kibana Dashboard VEGA Flights](assets/kibana-dashboard-vega-flights.jpg)
+![Kibana Dashboard VEGA Flights](docs/assets/kibana-dashboard-vega-flights.jpg)
 
 ### [2a-cars-splom.ipynb](viz-2a-cars-splom.ipynb)
 
@@ -30,13 +30,13 @@ Before moving on with this notebook, we used Elasticsearch's Machine Learning to
 
 The final chart for this second dashboard is a violin chart to show the distribution of *Miles per Gallon* over different areas.
 
-![Kibana Dashboard VEGA Cars](assets/kibana-dashboard-vega-cars.jpg)
+![Kibana Dashboard VEGA Cars](docs/assets/kibana-dashboard-vega-cars.jpg)
 
 ### [3a-iris-classification](viz-3a-iris-classification.ipynb)
 
 This notebook demonstrates how small multiples of stacked bar chart histograms can be used to evaluate machine learning results, in this case comparing original values to predicted categorizations.
 
-![Kibana Dashboard VEGA Iris](assets/kibana-dashboard-vega-iris.jpg)
+![Kibana Dashboard VEGA Iris](docs/assets/kibana-dashboard-vega-iris.jpg)
 
 ### [4a-anomaly-detection.ipynb](4a-anomaly-detection.ipynb)
 
@@ -50,7 +50,7 @@ On top of the previous example this adds user created annotations as an addition
 
 In this example we're back at using small multiples to visualize data about distinct entities with highlighted anomalies.
 
-![Kibana Dashboard VEGA Anomaly Detection](assets/kibana-dashboard-vega-anomaly-detection.jpg)
+![Kibana Dashboard VEGA Anomaly Detection](docs/assets/kibana-dashboard-vega-anomaly-detection.jpg)
 
 
 
