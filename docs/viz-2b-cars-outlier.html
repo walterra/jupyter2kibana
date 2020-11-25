@@ -9129,15 +9129,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box 
+/* This file is a compatability layer.  It allows the usage of flexible box
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this 
+`Modern browsers` comments below).  Browsers that are known to implement this
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+ 
+    Internet Explorer 11+
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12519,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for 
+  /* This injects handle bars (a short, wide = symbol) for
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -13033,14 +13033,14 @@ div#notebook {
   div.cell {
     display: block;
     page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
   }
-  div.output { 
+  div.output_wrapper {
     display: block;
-    page-break-inside: avoid; 
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
   }
 }
 </style>
@@ -13399,7 +13399,7 @@ div#notebook {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["Miles_per_Gallon", "Acceleration", "Horsepower"], "row": ["Horsepower", "Acceleration", "Miles_per_Gallon"]}, "spec": {"data": {"url": "http://localhost:9200/cars_outlier/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": "point", "encoding": {"color": {"condition": {"value": "red", "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": "gray"}, "opacity": {"condition": {"value": 0.75, "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": 0.25}, "size": {"condition": {"value": 28, "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": 2}, "tooltip": [{"type": "nominal", "field": "Name"}, {"type": "quantitative", "field": "ml.outlier_score"}, {"type": "quantitative", "field": "Horsepower"}, {"type": "quantitative", "field": "Acceleration"}, {"type": "quantitative", "field": "Miles_per_Gallon"}], "x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 150, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}, "SelectorName": {"type": "single", "fields": ["cutoff"], "bind": {"input": "range", "max": 1, "min": 0, "name": "Outlier score Threshold:", "step": 0.01}, "init": {"cutoff": 0.8}}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}], "width": 150}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["Miles_per_Gallon", "Acceleration", "Horsepower"], "row": ["Horsepower", "Acceleration", "Miles_per_Gallon"]}, "spec": {"data": {"url": "https://walterra.github.io/jupyter2kibana/data/cars_outlier.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": "point", "encoding": {"color": {"condition": {"value": "red", "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": "gray"}, "opacity": {"condition": {"value": 0.75, "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": 0.25}, "size": {"condition": {"value": 28, "test": "(datum['ml.outlier_score'] >= SelectorName.cutoff)"}, "value": 2}, "tooltip": [{"type": "nominal", "field": "Name"}, {"type": "quantitative", "field": "ml.outlier_score"}, {"type": "quantitative", "field": "Horsepower"}, {"type": "quantitative", "field": "Acceleration"}, {"type": "quantitative", "field": "Miles_per_Gallon"}], "x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 150, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}, "SelectorName": {"type": "single", "fields": ["cutoff"], "bind": {"input": "range", "max": 1, "min": 0, "name": "Outlier score Threshold:", "step": 0.01}, "init": {"cutoff": 0.8}}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}], "width": 150}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
 </script>
 </div>
 
@@ -13415,7 +13415,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="k">import</span> <span class="n">saveVegaVis</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span> 
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span>
 <span class="n">es</span><span class="o">=</span><span class="n">Elasticsearch</span><span class="p">([{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="mi">9200</span><span class="p">}])</span>
 
 <span class="n">saveVegaVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">,</span> <span class="s1">&#39;def-vega-cars-outlier-1&#39;</span><span class="p">,</span> <span class="n">chart</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
@@ -13456,7 +13456,7 @@ div#notebook {
   </div>
 </body>
 
- 
+
 
 
 </html>
