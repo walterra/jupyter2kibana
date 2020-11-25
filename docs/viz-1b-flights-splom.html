@@ -9129,15 +9129,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box 
+/* This file is a compatability layer.  It allows the usage of flexible box
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this 
+`Modern browsers` comments below).  Browsers that are known to implement this
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+ 
+    Internet Explorer 11+
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12519,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for 
+  /* This injects handle bars (a short, wide = symbol) for
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -13033,14 +13033,14 @@ div#notebook {
   div.cell {
     display: block;
     page-break-inside: avoid;
-  } 
-  div.output_wrapper { 
-    display: block;
-    page-break-inside: avoid; 
   }
-  div.output { 
+  div.output_wrapper {
     display: block;
-    page-break-inside: avoid; 
+    page-break-inside: avoid;
+  }
+  div.output {
+    display: block;
+    page-break-inside: avoid;
   }
 }
 </style>
@@ -13221,7 +13221,7 @@ div#notebook {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["FlightTimeMin", "FlightDelayMin", "DistanceKilometers", "AvgTicketPrice"], "row": ["AvgTicketPrice", "DistanceKilometers", "FlightDelayMin", "FlightTimeMin"]}, "spec": {"data": {"url": "http://localhost:9200/kibana_sample_data_flights/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "opacity": 0.5, "size": 6}, "encoding": {"x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 100, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "transform": [{"calculate": "datum._source.Carrier", "as": "Carrier"}, {"calculate": "datum._source.AvgTicketPrice", "as": "AvgTicketPrice"}, {"calculate": "datum._source.DistanceKilometers", "as": "DistanceKilometers"}, {"calculate": "datum._source.DistanceMiles", "as": "DistanceMiles"}, {"calculate": "datum._source.FlightDelayMin", "as": "FlightDelayMin"}, {"calculate": "datum._source.FlightTimeMin", "as": "FlightTimeMin"}, {"calculate": "datum._source.dayOfWeek", "as": "dayOfWeek"}], "width": 100}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["FlightTimeMin", "FlightDelayMin", "DistanceKilometers", "AvgTicketPrice"], "row": ["AvgTicketPrice", "DistanceKilometers", "FlightDelayMin", "FlightTimeMin"]}, "spec": {"data": {"url": "https://walterra.github.io/jupyter2kibana/data/kibana_sample_data_flights.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "opacity": 0.5, "size": 6}, "encoding": {"x": {"type": "quantitative", "field": {"repeat": "column"}}, "y": {"type": "quantitative", "field": {"repeat": "row"}}}, "height": 100, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "transform": [{"calculate": "datum._source.Carrier", "as": "Carrier"}, {"calculate": "datum._source.AvgTicketPrice", "as": "AvgTicketPrice"}, {"calculate": "datum._source.DistanceKilometers", "as": "DistanceKilometers"}, {"calculate": "datum._source.DistanceMiles", "as": "DistanceMiles"}, {"calculate": "datum._source.FlightDelayMin", "as": "FlightDelayMin"}, {"calculate": "datum._source.FlightTimeMin", "as": "FlightTimeMin"}, {"calculate": "datum._source.dayOfWeek", "as": "dayOfWeek"}], "width": 100}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
 </script>
 </div>
 
@@ -13237,7 +13237,7 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">save_vega_vis</span> <span class="k">import</span> <span class="n">saveVegaVis</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span> 
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span>
 <span class="n">es</span><span class="o">=</span><span class="n">Elasticsearch</span><span class="p">([{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="mi">9200</span><span class="p">}])</span>
 
 <span class="n">saveVegaVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="s1">&#39;kibana_sample_data_flights&#39;</span><span class="p">,</span> <span class="s1">&#39;def-vega-splom-1&#39;</span><span class="p">,</span> <span class="n">chart</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
@@ -13264,7 +13264,7 @@ div#notebook {
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> save_vega_vis <span class="ansi-green-fg">import</span> saveVegaVis
 <span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">from</span> elasticsearch <span class="ansi-green-fg">import</span> Elasticsearch
 <span class="ansi-green-intense-fg ansi-bold">      3</span> es<span class="ansi-blue-fg">=</span>Elasticsearch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;host&#39;</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">&#39;localhost&#39;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;port&#39;</span><span class="ansi-blue-fg">:</span><span class="ansi-cyan-fg">9200</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> saveVegaVis<span class="ansi-blue-fg">(</span>es<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;kibana_sample_data_flights&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;def-vega-splom-1&#39;</span><span class="ansi-blue-fg">,</span> chart<span class="ansi-blue-fg">,</span> resultSize<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1000</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;save_vega_vis&#39;</pre>
@@ -13279,7 +13279,7 @@ div#notebook {
   </div>
 </body>
 
- 
+
 
 
 </html>
