@@ -38,7 +38,7 @@ This notebook demonstrates how small multiples of stacked bar chart histograms c
 
 ![Kibana Dashboard VEGA Iris](docs/assets/kibana-dashboard-vega-iris.jpg)
 
-### [4a-anomaly-detection.ipynb](https://walterra.github.io/jupyter2kibana/via-4a-anomaly-detection.html)
+### [4a-anomaly-detection.ipynb](https://walterra.github.io/jupyter2kibana/viz-4a-anomaly-detection.html)
 
 This notebook demonstrates how to replicate one of the custom charts of Kibana's Machine Learning plugin as an embeddable chart for dashboards.
 
