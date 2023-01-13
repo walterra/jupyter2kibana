@@ -1,7 +1,11 @@
-import datetime
 import json
+import requests
 
-def saveVegaLiteVis(client, index, visName, altairChart, resultSize=100, timeField=True):
+with open('config.json') as config_file:
+  es_config = json.load(config_file)
+
+
+def saveVegaLiteVis(index, visName, altairChart, resultSize=100, timeField=True, verify=True):
     chart_json = json.loads(altairChart.to_json())
     chart_json['data']['url'] = {
         "%context%": True,
@@ -24,33 +28,33 @@ def saveVegaLiteVis(client, index, visName, altairChart, resultSize=100, timeFie
     }
 
     visSavedObject={
-        "visualization" : {
-          "title" : visName,
-          "visState" : json.dumps(visState, sort_keys=True, indent=4, separators=(',', ': ')),
-          "uiStateJSON" : "{}",
-          "description" : "",
-          "version" : 1,
-          "kibanaSavedObjectMeta" : {
-            "searchSourceJSON" : json.dumps({
-              "query": {
-                "language": "kuery",
-                "query": ""
-              },
-              "filter": []
-            }),
-          }
-        },
-        "type" : "visualization",
-        "references" : [ ],
-        "migrationVersion" : {
-          "visualization" : "7.7.0"
-        },
-        "updated_at" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
+      "attributes" : {
+        "title" : visName,
+        "visState" : json.dumps(visState, sort_keys=True, indent=4, separators=(',', ': ')),
+        "uiStateJSON" : "{}",
+        "description" : "",
+        "version" : 1,
+        "kibanaSavedObjectMeta" : {
+          "searchSourceJSON" : json.dumps({
+            "query": {
+              "language": "kuery",
+              "query": ""
+            },
+            "filter": []
+          }),
+        }
+      }
     }
 
-    return client.index(index='.kibana',id='visualization:'+visName,body=visSavedObject)
+    return requests.post(
+        es_config['kibana_client'] + '/api/saved_objects/visualization/' + visName,
+        json=visSavedObject,
+        auth=(es_config['user'], es_config['password']),
+        headers={"kbn-xsrf":"jupyter2kibana"},
+        verify=verify
+    )
 
-def saveVegaVis(client, index, visName, altairChart, resultSize=100, timeField=True):
+def saveVegaVis(index, visName, altairChart, resultSize=100, timeField=True, verify=True):
     chart_json = json.loads(altairChart.to_json())
     chart_json['spec']['data']['url'] = {
         "%context%": True,
@@ -73,7 +77,7 @@ def saveVegaVis(client, index, visName, altairChart, resultSize=100, timeField=T
     }
 
     visSavedObject={
-        "visualization" : {
+        "attributes" : {
           "title" : visName,
           "visState" : json.dumps(visState, sort_keys=True, indent=4, separators=(',', ': ')),
           "uiStateJSON" : "{}",
@@ -89,12 +93,13 @@ def saveVegaVis(client, index, visName, altairChart, resultSize=100, timeField=T
             }),
           }
         },
-        "type" : "visualization",
-        "references" : [ ],
-        "migrationVersion" : {
-          "visualization" : "7.7.0"
-        },
-        "updated_at" : datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S.000Z")
     }
 
-    return client.index(index='.kibana',id='visualization:'+visName,body=visSavedObject)
+    return requests.post(
+        es_config['kibana_client'] + '/api/saved_objects/visualization/' + visName,
+        json=visSavedObject,
+        auth=(es_config['user'], es_config['password']),
+        headers={"kbn-xsrf":"jupyter2kibana"},
+        verify=verify
+    )
+
