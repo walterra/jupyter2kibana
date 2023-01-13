@@ -1,0 +1,25 @@
+{
+  "name": "jupyter2kibana",
+  "version": "1.0.0",
+  "description": "![Jupyter Kibana Workflow](docs/assets/jupyter-kibana-workflow.jpg)",
+  "main": "proxy.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walterra/jupyter2kibana.git"
+  },
+  "author": "Walter Rafelsberger <walter.rafelsberger@elastic.co>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walterra/jupyter2kibana/issues"
+  },
+  "homepage": "https://github.com/walterra/jupyter2kibana#readme",
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  }
+}
