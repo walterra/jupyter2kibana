@@ -1,0 +1,6 @@
+{
+  "es_client": "https://localhost:9200",
+  "kibana_client": "https://localhost:5601",
+  "user": "",
+  "password": ""
+}

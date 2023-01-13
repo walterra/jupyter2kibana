@@ -4,6 +4,31 @@
 
 This repository consists of several Jupyter Notebooks to demonstrate a workflow mainly using Altair to develop visualizations which can be published to Kibana Dashboards. One of the main benefits of this approach is that a data scientist can continue to work with the environment they are most familiar with, without touching raw VEGA JSON specifications or coding custom JavaScript visualizations.
 
+## Setup virtual environment and install dependencies from requirements.txt
+
+```bash
+# create virtual environment
+virtualenv env-juptyer2kibana
+
+# activate (macOS)
+source env-juptyer2kibana/bin/activate
+
+# activate (Windows)
+.\env-juptyer2kibana\Scripts\activate
+
+# install dependencies via requirements.txt
+pip install -r requirements.txt
+
+# install kernel for jupyter notebooks
+python -m ipykernel install --user --name=env-juptyer2kibana
+
+# run notebook
+jupyter notebook
+
+#deactivate once done
+deactivate
+```
+
 ## Notebooks
 
 ### [1a-flights-histogram.ipynb](https://walterra.github.io/jupyter2kibana/viz-1a-flights-histogram.html)
