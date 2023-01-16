@@ -5,7 +5,7 @@ with open('config.json') as config_file:
   es_config = json.load(config_file)
 
 
-def saveVegaLiteVis(index, visName, altairChart, resultSize=100, timeField=True, verify=True):
+def saveVegaLiteVis(index, visName, altairChart, resultSize=100, timeField="timestamp", verify=True):
     chart_json = json.loads(altairChart.to_json())
     chart_json['data']['url'] = {
         "%context%": True,
@@ -16,7 +16,7 @@ def saveVegaLiteVis(index, visName, altairChart, resultSize=100, timeField=True,
     }
 
     if timeField:
-      chart_json['data']['url']['%timefield%'] = "timestamp"
+      chart_json['data']['url']['%timefield%'] = timeField
 
     visState = {
       "type": "vega",
@@ -54,7 +54,7 @@ def saveVegaLiteVis(index, visName, altairChart, resultSize=100, timeField=True,
         verify=verify
     )
 
-def saveVegaVis(index, visName, altairChart, resultSize=100, timeField=True, verify=True):
+def saveVegaVis(index, visName, altairChart, resultSize=100, timeField="timestamp", verify=True):
     chart_json = json.loads(altairChart.to_json())
     chart_json['spec']['data']['url'] = {
         "%context%": True,
@@ -65,7 +65,7 @@ def saveVegaVis(index, visName, altairChart, resultSize=100, timeField=True, ver
     }
 
     if timeField:
-      chart_json['spec']['data']['url']['%timefield%'] = "timestamp"
+      chart_json['spec']['data']['url']['%timefield%'] = timeField
 
     visState = {
       "type": "vega",
