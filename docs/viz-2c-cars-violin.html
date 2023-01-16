@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>viz-2c-cars-violin</title>
+<title>viz-2c-cars-violin</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<style type="text/css">
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+  </style>
 
 
 
 <style type="text/css">
-    /*!
+/*!
 *
 * Twitter Bootstrap
 *
@@ -9129,15 +9204,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box
+/* This file is a compatability layer.  It allows the usage of flexible box 
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this
+`Modern browsers` comments below).  Browsers that are known to implement this 
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+
+    Internet Explorer 11+ 
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12594,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for
+  /* This injects handle bars (a short, wide = symbol) for 
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -12944,81 +13019,7 @@ ul.typeahead-list  > li > a.pull-right {
 .terminal-app #terminado-container {
   margin-top: 20px;
 }
-/*# sourceMappingURL=style.min.css.map */
-    </style>
-<style type="text/css">
-    .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #408080; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #008000; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
-.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #008000 } /* Keyword.Pseudo */
-.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #B00040 } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #7D9029 } /* Name.Attribute */
-.highlight .nb { color: #008000 } /* Name.Builtin */
-.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #19177C } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
-.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
-.highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
-.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
-.highlight .ss { color: #19177C } /* Literal.String.Symbol */
-.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
-.highlight .vc { color: #19177C } /* Name.Variable.Class */
-.highlight .vg { color: #19177C } /* Name.Variable.Global */
-.highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
-    </style>
-
-
+/*# sourceMappingURL=style.min.css.map */</style>
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -13030,6 +13031,9 @@ div#notebook {
   overflow: visible;
   border-top: none;
 }@media print {
+  body {
+    margin: 0;
+  }
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -13044,30 +13048,38 @@ div#notebook {
   }
 }
 </style>
-
-<!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
-<!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: {
+                    automatic: true
+                    }
+                }
+            });
+
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
-    });
+    }
+    init_mathjax();
     </script>
     <!-- End of mathjax configuration --></head>
 <body>
@@ -13090,33 +13102,29 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 <span class="kn">import</span> <span class="nn">eland</span> <span class="k">as</span> <span class="nn">ed</span>
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span>
+<span class="kn">import</span> <span class="nn">elastic_transport</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="n">alt</span><span class="o">.</span><span class="n">data_transformers</span><span class="o">.</span><span class="n">disable_max_rows</span><span class="p">()</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;elastic_transport&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="c1"># Suppress insecure SSL connection warnings</span>
+<span class="c1"># In dev environments with the `verify_certs=False`</span>
+<span class="c1"># you might want to reduce those warnings.</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">elastic_transport</span><span class="o">.</span><span class="n">SecurityWarning</span><span class="p">)</span>
+
+<span class="c1"># For rendering the notebook to HTML hide all warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[1]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>DataTransformerRegistry.enable(&#39;default&#39;)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -13139,7 +13147,21 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="s1">&#39;localhost:9200&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+  <span class="n">es_config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+<span class="c1"># First instantiate an &#39;Elasticsearch&#39; instance with the supplied config</span>
+<span class="n">es</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">(</span>
+    <span class="n">hosts</span><span class="o">=</span><span class="p">[</span><span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;es_client&#39;</span><span class="p">]],</span>
+    <span class="n">basic_auth</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify_certs=False`</span>
+    <span class="n">verify_certs</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
 <span class="n">ed_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -13157,8 +13179,7 @@ div#notebook {
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -13207,7 +13228,7 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.047825</td>
+      <td>0.059161</td>
       <td>0</td>
     </tr>
     <tr>
@@ -13224,7 +13245,7 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.036906</td>
+      <td>0.044278</td>
       <td>1</td>
     </tr>
     <tr>
@@ -13241,7 +13262,7 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.040322</td>
+      <td>0.031178</td>
       <td>2</td>
     </tr>
     <tr>
@@ -13258,7 +13279,7 @@ div#notebook {
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.036022</td>
+      <td>0.033840</td>
       <td>3</td>
     </tr>
     <tr>
@@ -13272,17 +13293,16 @@ div#notebook {
       <td>USA</td>
       <td>3449</td>
       <td>1970-01-01</td>
-      <td>[{'feature_name': 'Acceleration', 'influence':...</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>0.108697</td>
+      <td>NaN</td>
+      <td>0.042260</td>
       <td>4</td>
     </tr>
   </tbody>
 </table>
 </div>
-<p>5 rows × 14 columns</p>
-</div>
+<p>5 rows × 14 columns</p></div>
 
 </div>
 
@@ -13295,7 +13315,19 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9200/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=1000&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note: To create the Vega spec using Altair we reference ES via URL first. This will only work</span>
+<span class="c1"># for non-secured ES instances. If your ES instance runs using SSL and/or authentication the chart</span>
+<span class="c1"># in this cell will render empty. You can still save the visualization in Kibana correctly in the</span>
+<span class="c1"># next cell because there the URL gets replaced with an Elasticsearch query</span>
+<span class="c1"># to be used via the Kibana Vega plugin.</span>
+
+<span class="c1"># WARNING:</span>
+<span class="c1"># Do the following approach using a proxy only for demo purposes in a development environment.</span>
+<span class="c1"># It will expose a secured ES instance unsecured!</span>
+<span class="c1"># To make this work for demo purposes run the nodejs based proxy in a separate terminal like this:</span>
+<span class="c1"># NODE_TLS_REJECT_UNAUTHORIZED=&#39;0&#39; node proxy</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9220/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=1000&#39;</span>
 <span class="n">url_data</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;hits.hits&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
 
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;Cylinders&#39;</span><span class="p">,</span> <span class="s1">&#39;Displacement&#39;</span><span class="p">,</span> <span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span>
@@ -13352,30 +13384,36 @@ div#notebook {
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-ae56f7aeec514b7295c6f3df99cef4ad"></div>
+<div id="altair-viz-9c1683d85bad480d9f07059d6a33cbed"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ae56f7aeec514b7295c6f3df99cef4ad") {
-      outputDiv = document.getElementById("altair-viz-ae56f7aeec514b7295c6f3df99cef4ad");
+    if (outputDiv.id !== "altair-viz-9c1683d85bad480d9f07059d6a33cbed") {
+      outputDiv = document.getElementById("altair-viz-9c1683d85bad480d9f07059d6a33cbed");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13391,18 +13429,15 @@ div#notebook {
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}, "facet": {"spacing": 0}}, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/cars_outlier.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "area", "orient": "horizontal"}, "encoding": {"color": {"type": "nominal", "field": "Origin"}, "column": {"type": "nominal", "field": "Origin", "header": {"labelOrient": "bottom", "labelPadding": 0, "titleOrient": "bottom"}}, "x": {"type": "quantitative", "axis": {"grid": false, "labels": false, "ticks": true, "values": [0]}, "field": "density", "impute": null, "stack": "center", "title": null}, "y": {"type": "quantitative", "field": "Miles_per_Gallon"}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}, {"density": "Miles_per_Gallon", "extent": [5, 50], "groupby": ["Origin"], "as": ["Miles_per_Gallon", "density"]}], "width": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}, "facet": {"spacing": 0}}, "data": {"url": "http://localhost:9220/cars_outlier/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "area", "orient": "horizontal"}, "encoding": {"color": {"field": "Origin", "type": "nominal"}, "column": {"field": "Origin", "header": {"labelOrient": "bottom", "labelPadding": 0, "titleOrient": "bottom"}, "type": "nominal"}, "x": {"axis": {"grid": false, "labels": false, "ticks": true, "values": [0]}, "field": "density", "impute": null, "stack": "center", "title": null, "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}, {"density": "Miles_per_Gallon", "extent": [5, 50], "groupby": ["Origin"], "as": ["Miles_per_Gallon", "density"]}], "width": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13415,11 +13450,17 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="k">import</span> <span class="n">saveVegaLiteVis</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span>
-<span class="n">es</span><span class="o">=</span><span class="n">Elasticsearch</span><span class="p">([{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="mi">9200</span><span class="p">}])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="kn">import</span> <span class="n">saveVegaLiteVis</span>
 
-<span class="n">saveVegaLiteVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">,</span> <span class="s1">&#39;def-vega-cars-violin&#39;</span><span class="p">,</span> <span class="n">chart</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">timeField</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">saveVegaLiteVis</span><span class="p">(</span>
+    <span class="n">index_name</span><span class="p">,</span>
+    <span class="s1">&#39;def-vega-cars-violin-1&#39;</span><span class="p">,</span>
+    <span class="n">chart</span><span class="p">,</span>
+    <span class="n">resultSize</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify=False`</span>
+    <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">timeField</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13438,13 +13479,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;_index&#39;: &#39;.kibana_3&#39;,
- &#39;_id&#39;: &#39;visualization:def-vega-cars-violin&#39;,
- &#39;_version&#39;: 2,
- &#39;result&#39;: &#39;updated&#39;,
- &#39;_shards&#39;: {&#39;total&#39;: 1, &#39;successful&#39;: 1, &#39;failed&#39;: 0},
- &#39;_seq_no&#39;: 409,
- &#39;_primary_term&#39;: 2}</pre>
+<pre>&lt;Response [409]&gt;</pre>
 </div>
 
 </div>
@@ -13456,6 +13491,9 @@ div#notebook {
     </div>
   </div>
 </body>
+
+
+
 
 
 

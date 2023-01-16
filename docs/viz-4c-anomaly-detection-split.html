@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>viz-4c-anomaly-detection-split</title>
+<title>viz-4c-anomaly-detection-split</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<style type="text/css">
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+  </style>
 
 
 
 <style type="text/css">
-    /*!
+/*!
 *
 * Twitter Bootstrap
 *
@@ -9129,15 +9204,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box
+/* This file is a compatability layer.  It allows the usage of flexible box 
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this
+`Modern browsers` comments below).  Browsers that are known to implement this 
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+
+    Internet Explorer 11+ 
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12594,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for
+  /* This injects handle bars (a short, wide = symbol) for 
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -12944,81 +13019,7 @@ ul.typeahead-list  > li > a.pull-right {
 .terminal-app #terminado-container {
   margin-top: 20px;
 }
-/*# sourceMappingURL=style.min.css.map */
-    </style>
-<style type="text/css">
-    .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #408080; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #008000; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
-.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #008000 } /* Keyword.Pseudo */
-.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #B00040 } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #7D9029 } /* Name.Attribute */
-.highlight .nb { color: #008000 } /* Name.Builtin */
-.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #19177C } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
-.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
-.highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
-.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
-.highlight .ss { color: #19177C } /* Literal.String.Symbol */
-.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
-.highlight .vc { color: #19177C } /* Name.Variable.Class */
-.highlight .vg { color: #19177C } /* Name.Variable.Global */
-.highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
-    </style>
-
-
+/*# sourceMappingURL=style.min.css.map */</style>
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -13030,6 +13031,9 @@ div#notebook {
   overflow: visible;
   border-top: none;
 }@media print {
+  body {
+    margin: 0;
+  }
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -13044,30 +13048,38 @@ div#notebook {
   }
 }
 </style>
-
-<!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
-<!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: {
+                    automatic: true
+                    }
+                }
+            });
+
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
-    });
+    }
+    init_mathjax();
     </script>
     <!-- End of mathjax configuration --></head>
 <body>
@@ -13077,7 +13089,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="viz-4c-anomaly-detection-split.ipynb">viz-4c-anomaly-detection-split.ipynb<a class="anchor-link" href="#viz-4c-anomaly-detection-split.ipynb">&#182;</a></h1><p>With this notebook we're back at using small multiples, but this time visualizing data about distinct entities with highlighted anomalies.</p>
+<h1 id="viz-4c-anomaly-detection-split.ipynb">viz-4c-anomaly-detection-split.ipynb<a class="anchor-link" href="#viz-4c-anomaly-detection-split.ipynb">&#182;</a></h1><h2 id="Note:-This-example-is-not-fully-working-after-the-latest-updates.">Note: This example is not fully working after the latest updates.<a class="anchor-link" href="#Note:-This-example-is-not-fully-working-after-the-latest-updates.">&#182;</a></h2><p>With this notebook we're back at using small multiples, but this time visualizing data about distinct entities with highlighted anomalies.</p>
 
 </div>
 </div>
@@ -13090,33 +13102,29 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 <span class="kn">import</span> <span class="nn">eland</span> <span class="k">as</span> <span class="nn">ed</span>
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span>
+<span class="kn">import</span> <span class="nn">elastic_transport</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="n">alt</span><span class="o">.</span><span class="n">data_transformers</span><span class="o">.</span><span class="n">disable_max_rows</span><span class="p">()</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;elastic_transport&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="c1"># Suppress insecure SSL connection warnings</span>
+<span class="c1"># In dev environments with the `verify_certs=False`</span>
+<span class="c1"># you might want to reduce those warnings.</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">elastic_transport</span><span class="o">.</span><span class="n">SecurityWarning</span><span class="p">)</span>
+
+<span class="c1"># For rendering the notebook to HTML hide all warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[1]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>DataTransformerRegistry.enable(&#39;default&#39;)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -13126,7 +13134,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index_name</span> <span class="o">=</span> <span class="s1">&#39;.ml-anomalies-fq-mean-split-1405&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">index_name</span> <span class="o">=</span> <span class="s1">&#39;.ml-anomalies-fq-mean-split-1216&#39;</span>
 <span class="n">vis_name</span> <span class="o">=</span> <span class="s1">&#39;ml-anomalies-cw-split&#39;</span>
 </pre></div>
 
@@ -13140,7 +13148,21 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="s1">&#39;localhost:9200&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+  <span class="n">es_config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+<span class="c1"># First instantiate an &#39;Elasticsearch&#39; instance with the supplied config</span>
+<span class="n">es</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">(</span>
+    <span class="n">hosts</span><span class="o">=</span><span class="p">[</span><span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;es_client&#39;</span><span class="p">]],</span>
+    <span class="n">basic_auth</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify_certs=False`</span>
+    <span class="n">verify_certs</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
 <span class="n">ed_df_number</span> <span class="o">=</span> <span class="n">ed_df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
 <span class="n">ed_df_number</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
@@ -13161,7 +13183,7 @@ div#notebook {
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(9636, 66)</pre>
+<pre>(9585, 73)</pre>
 </div>
 
 </div>
@@ -13175,7 +13197,19 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9200/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=10000&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note: To create the Vega spec using Altair we reference ES via URL first. This will only work</span>
+<span class="c1"># for non-secured ES instances. If your ES instance runs using SSL and/or authentication the chart</span>
+<span class="c1"># in this cell will render empty. You can still save the visualization in Kibana correctly in the</span>
+<span class="c1"># next cell because there the URL gets replaced with an Elasticsearch query</span>
+<span class="c1"># to be used via the Kibana Vega plugin.</span>
+
+<span class="c1"># WARNING:</span>
+<span class="c1"># Do the following approach using a proxy only for demo purposes in a development environment.</span>
+<span class="c1"># It will expose a secured ES instance unsecured!</span>
+<span class="c1"># To make this work for demo purposes run the nodejs based proxy in a separate terminal like this:</span>
+<span class="c1"># NODE_TLS_REJECT_UNAUTHORIZED=&#39;0&#39; node proxy</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9220/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=10000&#39;</span>
 <span class="n">url_data</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;hits.hits&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
 
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
@@ -13221,7 +13255,7 @@ div#notebook {
     <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span>
     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span>
 <span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span>
-    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span> 
     <span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span>
 <span class="p">)</span>
 
@@ -13243,30 +13277,36 @@ div#notebook {
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-e02fa78ceebb4cc99a9812d81c446dcd"></div>
+<div id="altair-viz-37d60fd6ccdb49fea7cafbfc76f9741e"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-e02fa78ceebb4cc99a9812d81c446dcd") {
-      outputDiv = document.getElementById("altair-viz-e02fa78ceebb4cc99a9812d81c446dcd");
+    if (outputDiv.id !== "altair-viz-37d60fd6ccdb49fea7cafbfc76f9741e") {
+      outputDiv = document.getElementById("altair-viz-37d60fd6ccdb49fea7cafbfc76f9741e");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13282,18 +13322,15 @@ div#notebook {
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "actual", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'actual')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "anomaly_score", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'anomaly_score')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "event_count", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'event_count')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "model_lower", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_lower')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "model_median", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_median')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "model_upper", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_upper')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "partition_field_value", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'partition_field_value')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "record_score", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'record_score')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "result_type", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'result_type')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "timestamp", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'timestamp')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 100, "title": "typical", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'typical')"}], "width": 100}], "columns": 4, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/fq_mean_split.json", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "actual", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'actual')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "anomaly_score", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'anomaly_score')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "event_count", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'event_count')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "model_lower", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_lower')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "model_median", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_median')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "model_upper", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'model_upper')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "partition_field_value", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'partition_field_value')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "record_score", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'record_score')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "result_type", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'result_type')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "timestamp", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'timestamp')"}], "width": 100}, {"mark": "bar", "encoding": {"tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 100, "title": "typical", "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"fold": ["anomaly_score", "actual", "typical", "event_count", "model_lower", "model_median", "model_upper", "timestamp", "result_type", "partition_field_value", "record_score"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'typical')"}], "width": 100}], "columns": 4, "data": {"url": "http://localhost:9220/.ml-anomalies-fq-mean-split-1216/_search?size=10000", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13394,30 +13431,36 @@ div#notebook {
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-8f61119488554436b4160720034b7d5a"></div>
+<div id="altair-viz-7a4ac7f6a65d4ab0811c15711eb2842d"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-8f61119488554436b4160720034b7d5a") {
-      outputDiv = document.getElementById("altair-viz-8f61119488554436b4160720034b7d5a");
+    if (outputDiv.id !== "altair-viz-7a4ac7f6a65d4ab0811c15711eb2842d") {
+      outputDiv = document.getElementById("altair-viz-7a4ac7f6a65d4ab0811c15711eb2842d");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13433,18 +13476,15 @@ div#notebook {
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "strokeWidth": 0}, "axis": {"domainColor": "#ddd", "grid": true, "gridColor": "#eee", "labelBound": true, "labelColor": "gray", "tickColor": "#ddd"}, "title": {"anchor": "start", "color": "gray", "fontSize": 14, "fontWeight": "bold"}}, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/fq_mean_split.json", "format": {"property": "hits.hits", "type": "json"}}, "facet": {"type": "nominal", "field": "partition_field_value"}, "spec": {"layer": [{"mark": {"type": "area", "color": "lightgray", "opacity": 0.5}, "encoding": {"x": {"type": "temporal", "axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": ""}, "y": {"type": "quantitative", "field": "mean_model_upper"}, "y2": {"field": "mean_model_lower"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "line", "color": "gray", "opacity": 0.5, "strokeJoin": "round"}, "encoding": {"x": {"type": "temporal", "axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": ""}, "y": {"type": "quantitative", "field": "mean_model_median", "title": ""}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "line", "color": "#1f77b4", "strokeJoin": "round"}, "encoding": {"x": {"type": "temporal", "axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": ""}, "y": {"type": "quantitative", "field": "mean_actual"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "circle", "opacity": 1, "size": 40, "stroke": "#1f77b4", "strokeWidth": 1}, "encoding": {"color": {"type": "quantitative", "field": "mean_anomaly_score", "scale": {"domain": [0, 25, 25, 50, 50, 75, 75, 100], "range": ["lightblue", "lightblue", "yellow", "yellow", "orange", "orange", "red", "red"]}}, "x": {"type": "temporal", "axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": ""}, "y": {"type": "quantitative", "field": "mean_actual"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}, {"filter": "(datum.mean_anomaly_score > 0)"}], "width": 110}, {"mark": {"type": "circle", "opacity": 0, "size": 100}, "encoding": {"tooltip": [{"type": "quantitative", "field": "mean_actual"}, {"type": "quantitative", "field": "mean_anomaly_score"}, {"type": "temporal", "field": "timestamp"}], "x": {"type": "temporal", "axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": ""}, "y": {"type": "quantitative", "field": "mean_actual"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}]}, "columns": 5, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "strokeWidth": 0}, "axis": {"domainColor": "#ddd", "grid": true, "gridColor": "#eee", "labelBound": true, "labelColor": "gray", "tickColor": "#ddd"}, "title": {"anchor": "start", "color": "gray", "fontSize": 14, "fontWeight": "bold"}}, "data": {"url": "http://localhost:9220/.ml-anomalies-fq-mean-split-1216/_search?size=10000", "format": {"property": "hits.hits", "type": "json"}}, "facet": {"field": "partition_field_value", "type": "nominal"}, "spec": {"layer": [{"mark": {"type": "area", "color": "lightgray", "opacity": 0.5}, "encoding": {"x": {"axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": "", "type": "temporal"}, "y": {"field": "mean_model_upper", "type": "quantitative"}, "y2": {"field": "mean_model_lower"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "line", "color": "gray", "opacity": 0.5, "strokeJoin": "round"}, "encoding": {"x": {"axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": "", "type": "temporal"}, "y": {"field": "mean_model_median", "title": "", "type": "quantitative"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "line", "color": "#1f77b4", "strokeJoin": "round"}, "encoding": {"x": {"axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": "", "type": "temporal"}, "y": {"field": "mean_actual", "type": "quantitative"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}, {"mark": {"type": "circle", "opacity": 1, "size": 40, "stroke": "#1f77b4", "strokeWidth": 1}, "encoding": {"color": {"field": "mean_anomaly_score", "scale": {"domain": [0, 25, 25, 50, 50, 75, 75, 100], "range": ["lightblue", "lightblue", "yellow", "yellow", "orange", "orange", "red", "red"]}, "type": "quantitative"}, "x": {"axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": "", "type": "temporal"}, "y": {"field": "mean_actual", "type": "quantitative"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}, {"filter": "(datum.mean_anomaly_score > 0)"}], "width": 110}, {"mark": {"type": "circle", "opacity": 0, "size": 100}, "encoding": {"tooltip": [{"field": "mean_actual", "type": "quantitative"}, {"field": "mean_anomaly_score", "type": "quantitative"}, {"field": "timestamp", "type": "temporal"}], "x": {"axis": {"grid": false}, "field": "timestamp", "scale": {"nice": false, "zero": false}, "title": "", "type": "temporal"}, "y": {"field": "mean_actual", "type": "quantitative"}}, "height": 60, "transform": [{"calculate": "datum._source.anomaly_score", "as": "anomaly_score"}, {"calculate": "datum._source.actual", "as": "actual"}, {"calculate": "datum._source.typical", "as": "typical"}, {"calculate": "datum._source.event_count", "as": "event_count"}, {"calculate": "datum._source.model_lower", "as": "model_lower"}, {"calculate": "datum._source.model_median", "as": "model_median"}, {"calculate": "datum._source.model_upper", "as": "model_upper"}, {"calculate": "datum._source.timestamp", "as": "timestamp"}, {"calculate": "datum._source.result_type", "as": "result_type"}, {"calculate": "datum._source.partition_field_value", "as": "partition_field_value"}, {"calculate": "datum._source.record_score", "as": "record_score"}, {"filter": "((datum.result_type === 'record') || (datum.result_type === 'model_plot'))"}, {"aggregate": [{"op": "mean", "field": "actual", "as": "mean_actual"}, {"op": "max", "field": "record_score", "as": "mean_anomaly_score"}, {"op": "mean", "field": "model_upper", "as": "mean_model_upper"}, {"op": "mean", "field": "model_median", "as": "mean_model_median"}, {"op": "mean", "field": "model_lower", "as": "mean_model_lower"}], "groupby": ["timestamp"]}], "width": 110}]}, "columns": 5, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13457,40 +13497,14 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="k">import</span> <span class="n">saveVegaLiteVis</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span>
-<span class="n">es</span><span class="o">=</span><span class="n">Elasticsearch</span><span class="p">([{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="mi">9200</span><span class="p">}])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># from kibana_vega_util import saveVegaLiteVis</span>
+<span class="c1"># from elasticsearch import Elasticsearch </span>
+<span class="c1"># es=Elasticsearch([{&#39;host&#39;:&#39;localhost&#39;,&#39;port&#39;:9200}])</span>
 
-<span class="n">saveVegaLiteVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">,</span> <span class="n">vis_name</span><span class="p">,</span> <span class="n">chart</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="c1"># saveVegaLiteVis(es, index_name, vis_name, chart, resultSize=10000)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[6]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;_index&#39;: &#39;.kibana_3&#39;,
- &#39;_id&#39;: &#39;visualization:ml-anomalies-cw-split&#39;,
- &#39;_version&#39;: 7,
- &#39;result&#39;: &#39;updated&#39;,
- &#39;_shards&#39;: {&#39;total&#39;: 1, &#39;successful&#39;: 1, &#39;failed&#39;: 0},
- &#39;_seq_no&#39;: 471,
- &#39;_primary_term&#39;: 2}</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -13498,6 +13512,9 @@ div#notebook {
     </div>
   </div>
 </body>
+
+
+
 
 
 

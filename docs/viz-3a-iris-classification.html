@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>viz-3a-iris-classification</title>
+<title>viz-3a-iris-classification</title><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<style type="text/css">
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
+  </style>
 
 
 
 <style type="text/css">
-    /*!
+/*!
 *
 * Twitter Bootstrap
 *
@@ -9129,15 +9204,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box
+/* This file is a compatability layer.  It allows the usage of flexible box 
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this
+`Modern browsers` comments below).  Browsers that are known to implement this 
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+
+    Internet Explorer 11+ 
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -12519,7 +12594,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for
+  /* This injects handle bars (a short, wide = symbol) for 
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -12944,81 +13019,7 @@ ul.typeahead-list  > li > a.pull-right {
 .terminal-app #terminado-container {
   margin-top: 20px;
 }
-/*# sourceMappingURL=style.min.css.map */
-    </style>
-<style type="text/css">
-    .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
-.highlight .c { color: #408080; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #FF0000 } /* Error */
-.highlight .k { color: #008000; font-weight: bold } /* Keyword */
-.highlight .o { color: #666666 } /* Operator */
-.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
-.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #FF0000 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #0044DD } /* Generic.Traceback */
-.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #008000 } /* Keyword.Pseudo */
-.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #B00040 } /* Keyword.Type */
-.highlight .m { color: #666666 } /* Literal.Number */
-.highlight .s { color: #BA2121 } /* Literal.String */
-.highlight .na { color: #7D9029 } /* Name.Attribute */
-.highlight .nb { color: #008000 } /* Name.Builtin */
-.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.highlight .no { color: #880000 } /* Name.Constant */
-.highlight .nd { color: #AA22FF } /* Name.Decorator */
-.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #0000FF } /* Name.Function */
-.highlight .nl { color: #A0A000 } /* Name.Label */
-.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #19177C } /* Name.Variable */
-.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mb { color: #666666 } /* Literal.Number.Bin */
-.highlight .mf { color: #666666 } /* Literal.Number.Float */
-.highlight .mh { color: #666666 } /* Literal.Number.Hex */
-.highlight .mi { color: #666666 } /* Literal.Number.Integer */
-.highlight .mo { color: #666666 } /* Literal.Number.Oct */
-.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
-.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
-.highlight .sc { color: #BA2121 } /* Literal.String.Char */
-.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
-.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
-.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.highlight .sx { color: #008000 } /* Literal.String.Other */
-.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
-.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
-.highlight .ss { color: #19177C } /* Literal.String.Symbol */
-.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #0000FF } /* Name.Function.Magic */
-.highlight .vc { color: #19177C } /* Name.Variable.Class */
-.highlight .vg { color: #19177C } /* Name.Variable.Global */
-.highlight .vi { color: #19177C } /* Name.Variable.Instance */
-.highlight .vm { color: #19177C } /* Name.Variable.Magic */
-.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
-    </style>
-
-
+/*# sourceMappingURL=style.min.css.map */</style>
 <style type="text/css">
 /* Overrides of notebook CSS for static HTML export */
 body {
@@ -13030,6 +13031,9 @@ div#notebook {
   overflow: visible;
   border-top: none;
 }@media print {
+  body {
+    margin: 0;
+  }
   div.cell {
     display: block;
     page-break-inside: avoid;
@@ -13044,30 +13048,38 @@ div#notebook {
   }
 }
 </style>
-
-<!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
-
-<!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML-full,Safe"> </script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true,
-            processEnvironments: true
-        },
-        // Center justify equations in code and markdown cells. Elsewhere
-        // we use CSS to left justify single line equations in code cells.
-        displayAlign: 'center',
-        "HTML-CSS": {
-            styles: {'.MathJax_Display': {"margin": 0}},
-            linebreaks: { automatic: true }
+    init_mathjax = function() {
+        if (window.MathJax) {
+        // MathJax loaded
+            MathJax.Hub.Config({
+                TeX: {
+                    equationNumbers: {
+                    autoNumber: "AMS",
+                    useLabelIds: true
+                    }
+                },
+                tex2jax: {
+                    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                displayAlign: 'center',
+                CommonHTML: {
+                    linebreaks: {
+                    automatic: true
+                    }
+                }
+            });
+
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
-    });
+    }
+    init_mathjax();
     </script>
     <!-- End of mathjax configuration --></head>
 <body>
@@ -13090,33 +13102,29 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
 <span class="kn">import</span> <span class="nn">eland</span> <span class="k">as</span> <span class="nn">ed</span>
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span>
+<span class="kn">import</span> <span class="nn">elastic_transport</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">urllib3</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
 <span class="n">alt</span><span class="o">.</span><span class="n">data_transformers</span><span class="o">.</span><span class="n">disable_max_rows</span><span class="p">()</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;elastic_transport&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+
+<span class="c1"># Suppress insecure SSL connection warnings</span>
+<span class="c1"># In dev environments with the `verify_certs=False`</span>
+<span class="c1"># you might want to reduce those warnings.</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">urllib3</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">InsecureRequestWarning</span><span class="p">)</span>
+<span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">(</span><span class="n">elastic_transport</span><span class="o">.</span><span class="n">SecurityWarning</span><span class="p">)</span>
+
+<span class="c1"># For rendering the notebook to HTML hide all warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[1]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>DataTransformerRegistry.enable(&#39;default&#39;)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -13126,7 +13134,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">vega_datasets</span> <span class="k">import</span> <span class="n">data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">vega_datasets</span> <span class="kn">import</span> <span class="n">data</span>
 <span class="n">pd_df</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iris</span><span class="p">()</span>
 <span class="n">pd_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 </pre></div>
@@ -13148,11 +13156,13 @@ div#notebook {
 <pre>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 150 entries, 0 to 149
 Data columns (total 5 columns):
-sepalLength    150 non-null float64
-sepalWidth     150 non-null float64
-petalLength    150 non-null float64
-petalWidth     150 non-null float64
-species        150 non-null object
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   sepalLength  150 non-null    float64
+ 1   sepalWidth   150 non-null    float64
+ 2   petalLength  150 non-null    float64
+ 3   petalWidth   150 non-null    float64
+ 4   species      150 non-null    object 
 dtypes: float64(4), object(1)
 memory usage: 6.0+ KB
 </pre>
@@ -13176,9 +13186,23 @@ memory usage: 6.0+ KB
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">pandas_to_eland</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+  <span class="n">es_config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span>
+
+<span class="c1"># First instantiate an &#39;Elasticsearch&#39; instance with the supplied config</span>
+<span class="n">es</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">(</span>
+    <span class="n">hosts</span><span class="o">=</span><span class="p">[</span><span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;es_client&#39;</span><span class="p">]],</span>
+    <span class="n">basic_auth</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
+        <span class="n">es_config</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span>
+    <span class="p">],</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify_certs=False`</span>
+    <span class="n">verify_certs</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">pandas_to_eland</span><span class="p">(</span>
     <span class="n">pd_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(),</span>
-    <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+    <span class="n">es</span><span class="p">,</span>
     <span class="s1">&#39;eland_iris&#39;</span><span class="p">,</span>
     <span class="n">es_if_exists</span><span class="o">=</span><span class="s2">&quot;replace&quot;</span><span class="p">,</span>
     <span class="n">es_refresh</span><span class="o">=</span><span class="kc">True</span>
@@ -13216,40 +13240,40 @@ memory usage: 6.0+ KB
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before you can run the next cell, you need to run a Machine Learning job doing classification in Elasticsearch using the following configuration. It will write the results to an index <code>iris_classification_3</code> which we can then access in the following cell.</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;iris_classification_3&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;create_time&quot;</span><span class="p">:</span> <span class="mi">1604478053294</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;8.0.0&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;eland_iris&quot;</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;dest&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;iris_classification_3&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;results_field&quot;</span><span class="p">:</span> <span class="s2">&quot;ml&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;analysis&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;classification&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;dependent_variable&quot;</span><span class="p">:</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;num_top_feature_importance_values&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&quot;class_assignment_objective&quot;</span><span class="p">:</span> <span class="s2">&quot;maximize_minimum_recall&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;num_top_classes&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&quot;prediction_field_name&quot;</span><span class="p">:</span> <span class="s2">&quot;species_prediction&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;training_percent&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
-      <span class="nt">&quot;randomize_seed&quot;</span><span class="p">:</span> <span class="mi">-2245814554146464500</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;analyzed_fields&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;includes&quot;</span><span class="p">:</span> <span class="p">[],</span>
-    <span class="nt">&quot;excludes&quot;</span><span class="p">:</span> <span class="p">[]</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;model_memory_limit&quot;</span><span class="p">:</span> <span class="s2">&quot;100mb&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;allow_lazy_start&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&quot;max_num_threads&quot;</span><span class="p">:</span> <span class="mi">1</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;iris_classification_3&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;create_time&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1604478053294</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.0.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">&quot;eland_iris&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;match_all&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;dest&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;iris_classification_3&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;results_field&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ml&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;analysis&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;classification&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;dependent_variable&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;species&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;num_top_feature_importance_values&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;class_assignment_objective&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;maximize_minimum_recall&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;num_top_classes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;prediction_field_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;species_prediction&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;training_percent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;randomize_seed&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">-2245814554146464500</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;analyzed_fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;includes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">    </span><span class="nt">&quot;excludes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;model_memory_limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100mb&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allow_lazy_start&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;max_num_threads&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -13262,7 +13286,7 @@ memory usage: 6.0+ KB
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">index_name</span><span class="o">=</span><span class="s1">&#39;iris_classification_3&#39;</span>
-<span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="s1">&#39;localhost:9200&#39;</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
+<span class="n">ed_df</span> <span class="o">=</span> <span class="n">ed</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">)</span>
 <span class="n">ed_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
@@ -13280,8 +13304,7 @@ memory usage: 6.0+ KB
 
 
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
+<div class="output_html rendered_html output_subarea output_execute_result"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -13304,7 +13327,6 @@ memory usage: 6.0+ KB
       <th>ml.feature_importance.classes.class_name</th>
       <th>ml.feature_importance.classes.importance</th>
       <th>ml.feature_importance.feature_name</th>
-      <th>ml.feature_importance.importance</th>
       <th>ml.is_training</th>
       <th>ml.prediction_probability</th>
       <th>ml.prediction_score</th>
@@ -13329,12 +13351,11 @@ memory usage: 6.0+ KB
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>True</td>
-      <td>0.991117</td>
-      <td>0.83755</td>
+      <td>0.993851</td>
+      <td>0.171765</td>
       <td>setosa</td>
-      <td>[{'class_probability': 0.9911168670896968, 'cl...</td>
+      <td>[{'class_probability': 0.9938514843172568, 'cl...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13352,12 +13373,11 @@ memory usage: 6.0+ KB
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>True</td>
-      <td>0.991117</td>
-      <td>0.83755</td>
+      <td>0.997786</td>
+      <td>0.172445</td>
       <td>setosa</td>
-      <td>[{'class_probability': 0.9911168670896968, 'cl...</td>
+      <td>[{'class_probability': 0.9977861220921344, 'cl...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13375,12 +13395,11 @@ memory usage: 6.0+ KB
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>True</td>
-      <td>0.991117</td>
-      <td>0.83755</td>
+      <td>0.997786</td>
+      <td>0.172445</td>
       <td>setosa</td>
-      <td>[{'class_probability': 0.9911168670896968, 'cl...</td>
+      <td>[{'class_probability': 0.9977861220921344, 'cl...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13392,18 +13411,39 @@ memory usage: 6.0+ KB
       <td>setosa</td>
     </tr>
     <tr>
+      <th>3</th>
+      <td>[{'feature_name': 'petalLength', 'classes': [{...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>True</td>
+      <td>0.997786</td>
+      <td>0.172445</td>
+      <td>setosa</td>
+      <td>[{'class_probability': 0.9977861220921344, 'cl...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
       <th>4</th>
       <td>[{'feature_name': 'petalLength', 'classes': [{...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
-      <td>NaN</td>
       <td>True</td>
-      <td>0.991117</td>
-      <td>0.83755</td>
+      <td>0.997510</td>
+      <td>0.172397</td>
       <td>setosa</td>
-      <td>[{'class_probability': 0.9911168670896968, 'cl...</td>
+      <td>[{'class_probability': 0.997510480108977, 'cla...</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -13414,34 +13454,10 @@ memory usage: 6.0+ KB
       <td>3.6</td>
       <td>setosa</td>
     </tr>
-    <tr>
-      <th>6</th>
-      <td>[{'feature_name': 'petalLength', 'classes': [{...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>True</td>
-      <td>0.991117</td>
-      <td>0.83755</td>
-      <td>setosa</td>
-      <td>[{'class_probability': 0.9911168670896968, 'cl...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>6</td>
-      <td>1.4</td>
-      <td>0.3</td>
-      <td>4.6</td>
-      <td>3.4</td>
-      <td>setosa</td>
-    </tr>
   </tbody>
 </table>
 </div>
-<p>5 rows × 20 columns</p>
-</div>
+<p>5 rows × 19 columns</p></div>
 
 </div>
 
@@ -13454,7 +13470,19 @@ memory usage: 6.0+ KB
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9200/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=1000&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Note: To create the Vega spec using Altair we reference ES via URL first. This will only work</span>
+<span class="c1"># for non-secured ES instances. If your ES instance runs using SSL and/or authentication the chart</span>
+<span class="c1"># in this cell will render empty. You can still save the visualization in Kibana correctly in the</span>
+<span class="c1"># next cell because there the URL gets replaced with an Elasticsearch query</span>
+<span class="c1"># to be used via the Kibana Vega plugin.</span>
+
+<span class="c1"># WARNING:</span>
+<span class="c1"># Do the following approach using a proxy only for demo purposes in a development environment.</span>
+<span class="c1"># It will expose a secured ES instance unsecured!</span>
+<span class="c1"># To make this work for demo purposes run the nodejs based proxy in a separate terminal like this:</span>
+<span class="c1"># NODE_TLS_REJECT_UNAUTHORIZED=&#39;0&#39; node proxy</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9220/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=1000&#39;</span>
 <span class="n">url_data</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;hits.hits&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
 
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;petalLength&#39;</span><span class="p">,</span> <span class="s1">&#39;petalWidth&#39;</span><span class="p">,</span> <span class="s1">&#39;sepalLength&#39;</span><span class="p">,</span> <span class="s1">&#39;sepalWidth&#39;</span><span class="p">]</span>
@@ -13491,10 +13519,10 @@ memory usage: 6.0+ KB
         <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span>
     <span class="p">)</span><span class="o">.</span><span class="n">resolve_scale</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span><span class="p">,</span> 
         <span class="n">y</span><span class="o">=</span><span class="s1">&#39;independent&#39;</span>
     <span class="p">)</span>
-
+    
     <span class="k">return</span> <span class="n">url_charts</span>
 
 <span class="n">chart_raw</span> <span class="o">=</span> <span class="n">small_multiples</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">)</span>
@@ -13516,30 +13544,36 @@ memory usage: 6.0+ KB
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-ad33e5010bf44acdbfb9168cf386de9e"></div>
+<div id="altair-viz-f6241e177e7c4a6db2767bea7eb686d3"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-ad33e5010bf44acdbfb9168cf386de9e") {
-      outputDiv = document.getElementById("altair-viz-ad33e5010bf44acdbfb9168cf386de9e");
+    if (outputDiv.id !== "altair-viz-f6241e177e7c4a6db2767bea7eb686d3") {
+      outputDiv = document.getElementById("altair-viz-f6241e177e7c4a6db2767bea7eb686d3");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13555,18 +13589,15 @@ memory usage: 6.0+ KB
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "petalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "petalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalWidth')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "sepalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "sepalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalWidth')"}], "width": 150}], "columns": 2, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/iris_classification.json", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"color": {"field": "species", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "petalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "petalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalWidth')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "sepalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "sepalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalWidth')"}], "width": 150}], "columns": 2, "data": {"url": "http://localhost:9220/iris_classification_3/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13598,30 +13629,36 @@ memory usage: 6.0+ KB
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-4a6e208f9e8c4b23b8a647e923ce86bd"></div>
+<div id="altair-viz-b469e440ad3541e48dfd7721e0989444"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4a6e208f9e8c4b23b8a647e923ce86bd") {
-      outputDiv = document.getElementById("altair-viz-4a6e208f9e8c4b23b8a647e923ce86bd");
+    if (outputDiv.id !== "altair-viz-b469e440ad3541e48dfd7721e0989444") {
+      outputDiv = document.getElementById("altair-viz-b469e440ad3541e48dfd7721e0989444");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13637,18 +13674,15 @@ memory usage: 6.0+ KB
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species_prediction"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "petalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species_prediction"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "petalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalWidth')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species_prediction"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "sepalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"type": "nominal", "field": "species_prediction"}, "tooltip": [{"type": "quantitative", "bin": true, "field": "value", "title": "x"}, {"type": "quantitative", "aggregate": "count", "title": "y"}], "x": {"type": "quantitative", "bin": true, "field": "value", "title": ""}, "y": {"type": "quantitative", "aggregate": "count", "title": ""}}, "height": 150, "title": "sepalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalWidth')"}], "width": 150}], "columns": 2, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/iris_classification.json", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "concat": [{"mark": "bar", "encoding": {"color": {"field": "species_prediction", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "petalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species_prediction", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "petalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'petalWidth')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species_prediction", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "sepalLength", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalLength')"}], "width": 150}, {"mark": "bar", "encoding": {"color": {"field": "species_prediction", "type": "nominal"}, "tooltip": [{"bin": true, "field": "value", "title": "x", "type": "quantitative"}, {"aggregate": "count", "title": "y", "type": "quantitative"}], "x": {"bin": true, "field": "value", "title": "", "type": "quantitative"}, "y": {"aggregate": "count", "title": "", "type": "quantitative"}}, "height": 150, "title": "sepalWidth", "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}, {"fold": ["petalLength", "petalWidth", "sepalLength", "sepalWidth"], "as": ["attribute", "value"]}, {"filter": "(datum.attribute === 'sepalWidth')"}], "width": 150}], "columns": 2, "data": {"url": "http://localhost:9220/iris_classification_3/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "resolve": {"axis": {"x": "independent", "y": "independent"}, "scale": {"x": "independent", "y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13687,30 +13721,36 @@ memory usage: 6.0+ KB
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-4d258679673740a194309d24f3bbba00"></div>
+<div id="altair-viz-eb3d96ecb9e04d9baf6de2b53ea83af6"></div>
 <script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-4d258679673740a194309d24f3bbba00") {
-      outputDiv = document.getElementById("altair-viz-4d258679673740a194309d24f3bbba00");
+    if (outputDiv.id !== "altair-viz-eb3d96ecb9e04d9baf6de2b53ea83af6") {
+      outputDiv = document.getElementById("altair-viz-eb3d96ecb9e04d9baf6de2b53ea83af6");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
       "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.17.0?noext",
       "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
     };
 
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
     }
 
     function showError(err) {
@@ -13726,18 +13766,15 @@ memory usage: 6.0+ KB
     if(typeof define === "function" && define.amd) {
       requirejs.config({paths});
       require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
     } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
+      maybeLoadScript("vega", "5")
+        .then(() => maybeLoadScript("vega-lite", "4.17.0"))
+        .then(() => maybeLoadScript("vega-embed", "6"))
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/iris_classification.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "size": 30}, "encoding": {"color": {"type": "nominal", "field": "species"}, "tooltip": [{"type": "nominal", "field": "species"}], "x": {"type": "quantitative", "field": "petalLength"}, "y": {"type": "quantitative", "field": "petalWidth"}}, "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"}, {"mode": "vega-lite"});
-</script>
-</div>
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "data": {"url": "http://localhost:9220/iris_classification_3/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "size": 30}, "encoding": {"color": {"field": "species", "type": "nominal"}, "tooltip": [{"field": "species", "type": "nominal"}], "x": {"field": "petalLength", "type": "quantitative"}, "y": {"field": "petalWidth", "type": "quantitative"}}, "transform": [{"calculate": "datum._source.ml.species_prediction", "as": "species_prediction"}, {"calculate": "datum._source.species", "as": "species"}, {"calculate": "datum._source.petalLength", "as": "petalLength"}, {"calculate": "datum._source.petalWidth", "as": "petalWidth"}, {"calculate": "datum._source.sepalLength", "as": "sepalLength"}, {"calculate": "datum._source.sepalWidth", "as": "sepalWidth"}], "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+</script></div>
 
 </div>
 
@@ -13750,12 +13787,26 @@ memory usage: 6.0+ KB
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="k">import</span> <span class="n">saveVegaLiteVis</span>
-<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="k">import</span> <span class="n">Elasticsearch</span>
-<span class="n">es</span><span class="o">=</span><span class="n">Elasticsearch</span><span class="p">([{</span><span class="s1">&#39;host&#39;</span><span class="p">:</span><span class="s1">&#39;localhost&#39;</span><span class="p">,</span><span class="s1">&#39;port&#39;</span><span class="p">:</span><span class="mi">9200</span><span class="p">}])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">kibana_vega_util</span> <span class="kn">import</span> <span class="n">saveVegaLiteVis</span>
 
-<span class="n">saveVegaLiteVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">,</span> <span class="s1">&#39;iris-histogram-raw&#39;</span><span class="p">,</span> <span class="n">chart_raw</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">timeField</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">saveVegaLiteVis</span><span class="p">(</span><span class="n">es</span><span class="p">,</span> <span class="n">index_name</span><span class="p">,</span> <span class="s1">&#39;iris-histogram-prediction&#39;</span><span class="p">,</span> <span class="n">chart_prediction</span><span class="p">,</span> <span class="n">resultSize</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">timeField</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">saveVegaLiteVis</span><span class="p">(</span>
+    <span class="n">index_name</span><span class="p">,</span>
+    <span class="s1">&#39;iris-histogram-raw-1&#39;</span><span class="p">,</span>
+    <span class="n">chart_raw</span><span class="p">,</span>
+    <span class="n">resultSize</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+    <span class="n">timeField</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify=False`</span>
+    <span class="n">verify</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+<span class="n">saveVegaLiteVis</span><span class="p">(</span>
+    <span class="n">index_name</span><span class="p">,</span>
+    <span class="s1">&#39;iris-histogram-prediction-1&#39;</span><span class="p">,</span>
+    <span class="n">chart_prediction</span><span class="p">,</span>
+    <span class="n">resultSize</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+    <span class="n">timeField</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="c1"># Only in development environments with self signed certificates fall back to use `verify=False`</span>
+    <span class="n">verify</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13774,13 +13825,7 @@ memory usage: 6.0+ KB
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;_index&#39;: &#39;.kibana_3&#39;,
- &#39;_id&#39;: &#39;visualization:iris-histogram-prediction&#39;,
- &#39;_version&#39;: 1,
- &#39;result&#39;: &#39;created&#39;,
- &#39;_shards&#39;: {&#39;total&#39;: 1, &#39;successful&#39;: 1, &#39;failed&#39;: 0},
- &#39;_seq_no&#39;: 423,
- &#39;_primary_term&#39;: 2}</pre>
+<pre>&lt;Response [409]&gt;</pre>
 </div>
 
 </div>
@@ -13792,6 +13837,9 @@ memory usage: 6.0+ KB
     </div>
   </div>
 </body>
+
+
+
 
 
 
