@@ -25,3 +25,18 @@ pip freeze > requirements.txt
 #deactivate once done
 deactivate
 ```
+
+## Render notebooks
+
+```bash
+jupyter nbconvert --execute --to html index.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-1a-flights-histogram.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-1b-flights-splom.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-2a-cars-splom.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-2b-cars-outlier.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-2c-cars-violin.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-3a-iris-classification.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-4a-anomaly-detection.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-4b-anomaly-detection-annotation.ipynb --template classic --output-dir='./docs'
+jupyter nbconvert --execute --to html viz-4c-anomaly-detection-split.ipynb --template classic --output-dir='./docs'
+```
