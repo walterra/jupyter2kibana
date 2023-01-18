@@ -13089,6 +13089,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://walterra.github.io/jupyter2kibana/">Home</a></p>
+<p><em>To make sure the Vega charts render correctly, view the notebook not from the Github repo but the published website here: 
+<a href="https://walterra.github.io/jupyter2kibana/viz-2c-cars-outlier.html">https://walterra.github.io/jupyter2kibana/viz-2c-cars-outlier.html</a></em></p>
 <h1 id="viz-2c-cars-outlier.ipynb">viz-2c-cars-outlier.ipynb<a class="anchor-link" href="#viz-2c-cars-outlier.ipynb">&#182;</a></h1><p>This notebook creates a violin chart to show the distribution of Miles per Gallon over different areas.</p>
 
 </div>
@@ -13327,7 +13330,12 @@ div#notebook {
 <span class="c1"># To make this work for demo purposes run the nodejs based proxy in a separate terminal like this:</span>
 <span class="c1"># NODE_TLS_REJECT_UNAUTHORIZED=&#39;0&#39; node proxy</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9220/&#39;</span><span class="o">+</span><span class="n">index_name</span><span class="o">+</span><span class="s1">&#39;/_search?size=1000&#39;</span>
+<span class="c1"># URL as ES endpoint</span>
+<span class="c1"># url = &#39;http://localhost:9220/&#39;+index_name+&#39;/_search?size=1000&#39;</span>
+
+<span class="c1"># URL static fallback</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://walterra.github.io/jupyter2kibana/data/cars_outlier.json&#39;</span>
+
 <span class="n">url_data</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;hits.hits&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
 
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Acceleration&#39;</span><span class="p">,</span> <span class="s1">&#39;Cylinders&#39;</span><span class="p">,</span> <span class="s1">&#39;Displacement&#39;</span><span class="p">,</span> <span class="s1">&#39;Horsepower&#39;</span><span class="p">,</span>
@@ -13384,13 +13392,13 @@ div#notebook {
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div id="altair-viz-9c1683d85bad480d9f07059d6a33cbed"></div>
+<div id="altair-viz-cbafbcb361f5491ba360a5ae38e2d025"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-9c1683d85bad480d9f07059d6a33cbed") {
-      outputDiv = document.getElementById("altair-viz-9c1683d85bad480d9f07059d6a33cbed");
+    if (outputDiv.id !== "altair-viz-cbafbcb361f5491ba360a5ae38e2d025") {
+      outputDiv = document.getElementById("altair-viz-cbafbcb361f5491ba360a5ae38e2d025");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -13436,7 +13444,7 @@ div#notebook {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}, "facet": {"spacing": 0}}, "data": {"url": "http://localhost:9220/cars_outlier/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "area", "orient": "horizontal"}, "encoding": {"color": {"field": "Origin", "type": "nominal"}, "column": {"field": "Origin", "header": {"labelOrient": "bottom", "labelPadding": 0, "titleOrient": "bottom"}, "type": "nominal"}, "x": {"axis": {"grid": false, "labels": false, "ticks": true, "values": [0]}, "field": "density", "impute": null, "stack": "center", "title": null, "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}, {"density": "Miles_per_Gallon", "extent": [5, 50], "groupby": ["Origin"], "as": ["Miles_per_Gallon", "density"]}], "width": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300, "stroke": null}, "facet": {"spacing": 0}}, "data": {"url": "https://walterra.github.io/jupyter2kibana/data/cars_outlier.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "area", "orient": "horizontal"}, "encoding": {"color": {"field": "Origin", "type": "nominal"}, "column": {"field": "Origin", "header": {"labelOrient": "bottom", "labelPadding": 0, "titleOrient": "bottom"}, "type": "nominal"}, "x": {"axis": {"grid": false, "labels": false, "ticks": true, "values": [0]}, "field": "density", "impute": null, "stack": "center", "title": null, "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "transform": [{"calculate": "datum._source.Acceleration", "as": "Acceleration"}, {"calculate": "datum._source.Cylinders", "as": "Cylinders"}, {"calculate": "datum._source.Displacement", "as": "Displacement"}, {"calculate": "datum._source.Horsepower", "as": "Horsepower"}, {"calculate": "datum._source.Miles_per_Gallon", "as": "Miles_per_Gallon"}, {"calculate": "datum._source.Name", "as": "Name"}, {"calculate": "datum._source.Origin", "as": "Origin"}, {"calculate": "datum._source.Weight_in_lbs", "as": "Weight_in_lbs"}, {"calculate": "datum._source.Year", "as": "Year"}, {"calculate": "datum._source.ml.outlier_score", "as": "ml.outlier_score"}, {"density": "Miles_per_Gallon", "extent": [5, 50], "groupby": ["Origin"], "as": ["Miles_per_Gallon", "density"]}], "width": 100, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div>
 
 </div>

@@ -13089,6 +13089,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://walterra.github.io/jupyter2kibana/">Home</a></p>
+<p><em>To make sure the Vega charts render correctly, view the notebook not from the Github repo but the published website here: 
+<a href="https://walterra.github.io/jupyter2kibana/viz-1b-flights-splom.html">https://walterra.github.io/jupyter2kibana/viz-1b-flights-splom.html</a></em></p>
 <h1 id="viz-1b-flights-splom.ipynb">viz-1b-flights-splom.ipynb<a class="anchor-link" href="#viz-1b-flights-splom.ipynb">&#182;</a></h1><p>This notebook builds on the learnings from <a href="ttps://walterra.github.io/jupyter2kibana/viz-1a-flights-histogram.html">the first one</a> and uses the same data to create and deploy a scatterplot matrix. The difference here is that we moved the code to create the SavedObject in Kibana to a helper function into <a href="https://github.com/walterra/jupyter2kibana/blob/master/kibana_vega_util.py">kibana_vega_util.py</a> so we can reuse it.</p>
 
 </div>
@@ -13146,7 +13149,12 @@ div#notebook {
 <span class="c1"># To make this work for demo purposes run the nodejs based proxy in a separate terminal like this:</span>
 <span class="c1"># NODE_TLS_REJECT_UNAUTHORIZED=&#39;0&#39; node proxy</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://localhost:9220/kibana_sample_data_flights/_search?size=1000&#39;</span>
+<span class="c1"># URL as ES endpoint</span>
+<span class="c1"># url = &#39;http://localhost:9220/kibana_sample_data_flights/_search?size=10000&#39;</span>
+
+<span class="c1"># URL static fallback</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://walterra.github.io/jupyter2kibana/data/kibana_sample_data_flights.json&#39;</span>
+
 <span class="n">url_data</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Data</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">DataFormat</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s1">&#39;hits.hits&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">))</span>
 
 <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
@@ -13193,13 +13201,13 @@ div#notebook {
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
-<div id="altair-viz-1ce4dd7a75d141f2ab3cbb7cd55c947c"></div>
+<div id="altair-viz-4c4240c63b3b4b8cab399e02bccee5c8"></div>
 <script type="text/javascript">
   var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
   (function(spec, embedOpt){
     let outputDiv = document.currentScript.previousElementSibling;
-    if (outputDiv.id !== "altair-viz-1ce4dd7a75d141f2ab3cbb7cd55c947c") {
-      outputDiv = document.getElementById("altair-viz-1ce4dd7a75d141f2ab3cbb7cd55c947c");
+    if (outputDiv.id !== "altair-viz-4c4240c63b3b4b8cab399e02bccee5c8") {
+      outputDiv = document.getElementById("altair-viz-4c4240c63b3b4b8cab399e02bccee5c8");
     }
     const paths = {
       "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
@@ -13245,7 +13253,7 @@ div#notebook {
         .catch(showError)
         .then(() => displayChart(vegaEmbed));
     }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["FlightTimeMin", "FlightDelayMin", "DistanceKilometers", "AvgTicketPrice"], "row": ["AvgTicketPrice", "DistanceKilometers", "FlightDelayMin", "FlightTimeMin"]}, "spec": {"data": {"url": "http://localhost:9220/kibana_sample_data_flights/_search?size=1000", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "opacity": 0.5, "size": 6}, "encoding": {"x": {"field": {"repeat": "column"}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "type": "quantitative"}}, "height": 100, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "transform": [{"calculate": "datum._source.Carrier", "as": "Carrier"}, {"calculate": "datum._source.AvgTicketPrice", "as": "AvgTicketPrice"}, {"calculate": "datum._source.DistanceKilometers", "as": "DistanceKilometers"}, {"calculate": "datum._source.DistanceMiles", "as": "DistanceMiles"}, {"calculate": "datum._source.FlightDelayMin", "as": "FlightDelayMin"}, {"calculate": "datum._source.FlightTimeMin", "as": "FlightTimeMin"}, {"calculate": "datum._source.dayOfWeek", "as": "dayOfWeek"}], "width": 100}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "repeat": {"column": ["FlightTimeMin", "FlightDelayMin", "DistanceKilometers", "AvgTicketPrice"], "row": ["AvgTicketPrice", "DistanceKilometers", "FlightDelayMin", "FlightTimeMin"]}, "spec": {"data": {"url": "https://walterra.github.io/jupyter2kibana/data/kibana_sample_data_flights.json", "format": {"property": "hits.hits", "type": "json"}}, "mark": {"type": "circle", "opacity": 0.5, "size": 6}, "encoding": {"x": {"field": {"repeat": "column"}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "type": "quantitative"}}, "height": 100, "selection": {"selector001": {"type": "interval", "bind": "scales", "encodings": ["x", "y"]}}, "transform": [{"calculate": "datum._source.Carrier", "as": "Carrier"}, {"calculate": "datum._source.AvgTicketPrice", "as": "AvgTicketPrice"}, {"calculate": "datum._source.DistanceKilometers", "as": "DistanceKilometers"}, {"calculate": "datum._source.DistanceMiles", "as": "DistanceMiles"}, {"calculate": "datum._source.FlightDelayMin", "as": "FlightDelayMin"}, {"calculate": "datum._source.FlightTimeMin", "as": "FlightTimeMin"}, {"calculate": "datum._source.dayOfWeek", "as": "dayOfWeek"}], "width": 100}, "$schema": "https://vega.github.io/schema/vega-lite/v4.17.0.json"}, {"mode": "vega-lite"});
 </script></div>
 
 </div>
